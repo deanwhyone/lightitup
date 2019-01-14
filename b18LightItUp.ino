@@ -3,24 +3,25 @@
  * author: Deanyone Su
  */
 
-#include <FastLED.h>
-#include <Adafruit_DotStar.h>
-#include <SPI.h>
-#define NUMPIXELS 125
+#include "FastLED.h"
+#include "SPI.h"
+#define LED_TYPE APA102
+#define COLOR_ORDER RGB
+#define NUM_PIXELS 125
+CRGB leds[NUM_PIXELS];
  
 // constants
   // pin 11: Master Out Slave In
   // pin 13: Serial Clock
-#define DATAPIN 11
-#define CLOCKPIN 13
-
-Adafruit_DotStar strip = Adafruit_DotStar(
-  NUMPIXELS, DOTSTAR_BRG);
+#define DATA_PIN 11
+#define CLOCK_PIN 13
   
 void setup() {
-  // put your setup code here, to run once:
-  strip.begin();
-  strip.show();
+  // tell FastLED that there are NUM_PIXEL DotStar LEDS on DATA_PIN
+  FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_PIXELS);
+
+  // default brightness
+  FastLED.setBrightness(96);
 }
 
 void loop() {
