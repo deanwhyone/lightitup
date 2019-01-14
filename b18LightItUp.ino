@@ -18,7 +18,8 @@ CRGB leds[NUM_PIXELS];
   
 void setup() {
   // tell FastLED that there are NUM_PIXEL DotStar LEDS on DATA_PIN
-  FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_PIXELS);
+  FastLED.addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, COLOR_ORDER, DATA_RATE_MHZ(24)>
+    (leds, NUM_PIXELS);
 
   // default brightness
   FastLED.setBrightness(96);
