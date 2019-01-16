@@ -5,6 +5,18 @@
 
 #include "FastLED.h"
 #include "SPI.h"
+#include <Audio.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>
+
+// GUItool: begin automatically generated code
+AudioInputUSB            usb1;           //xy=202.1999969482422,173.1999969482422
+AudioAnalyzeFFT256       fft256_1;       //xy=407.20001220703125,62.19999694824219
+AudioConnection          patchCord1(usb1, 0, fft256_1, 0);
+// GUItool: end automatically generated code
+
 #define LED_TYPE APA102
 #define COLOR_ORDER RGB
 #define NUM_PIXELS 125
@@ -16,19 +28,6 @@ CRGB leds[NUM_PIXELS];
 #define DATA_PIN 11
 #define CLOCK_PIN 13
 
-// standard MIDI messages, functions called by handler
-// middle C is 60
-void OnNoteOn(byte channel, byte note, byte velocity) {
-  leds[note%125] = CRGB::SeaGreen;
-  FastLED.show();
-  delay(30);
-}
-void OnNoteOff(byte channel, byte note, byte velocity) {
-  leds[note%125] CRGB::Black;
-  FastLED.show();
-  delay(1000);
-}
-
 void setup() {
   // tell FastLED that there are NUM_PIXEL DotStar LEDS on DATA_PIN
   FastLED.addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, COLOR_ORDER>
@@ -37,12 +36,9 @@ void setup() {
   // default brightness
   FastLED.setBrightness(96);
   
-  // set MIDI handlers
-  usbMIDI.setHandleNoteOn(OnNoteOn);
-  usbMIDI.setHandleNoteOff(OnNoteOff);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  usbMIDI.read();
+  
 }
