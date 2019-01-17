@@ -34,11 +34,21 @@ void setup() {
     (leds, NUM_PIXELS);
 
   // default brightness
-  FastLED.setBrightness(96);
+  FastLED.setBrightness(48);
   
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  
+  int i;
+  for (i = 0; i < NUM_PIXELS; i++) {
+    leds[i] = CRGB::Red;
+  }
+  FastLED.show();
+  delay(150);
+  for (i = 0; i < NUM_PIXELS; i++) {
+    leds[i] = CRGB::Black;
+  }
+  FastLED.show();
+  delay(150);
 }
